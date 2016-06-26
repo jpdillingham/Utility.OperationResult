@@ -1,4 +1,4 @@
-# Symbiote.OperationResult
+# OperationResult
 C# Class Library built to encapsulate the result of any operation. Includes a result code and a list of messages generated during the operation.
 
 The OperationResult namespace contains two types; the ```Result``` type and the generic extension type ```Result{T}```.
