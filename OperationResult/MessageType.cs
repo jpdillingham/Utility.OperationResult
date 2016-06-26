@@ -6,6 +6,10 @@
     public enum MessageType
     {
         /// <summary>
+        /// The default type; represents any level.
+        /// </summary>
+        Any,
+        /// <summary>
         /// The message contains low level trace information.
         /// </summary>
         Info,

@@ -274,17 +274,17 @@ namespace OperationResult
 
                 // if any informational messages were generated, print them to the logger
                 if (Messages.Where(m => m.Type == MessageType.Info).Count() > 0)
-                    LogAllMessages(successAction, "The following informational messages were generated during the operation:");
+                    LogAllMessages(successAction, MessageType.Info, "The following informational messages were generated during the operation:");
 
                 // if any warnings were generated, print them to the logger
                 if (ResultCode == ResultCode.Warning)
-                    LogAllMessages(warningAction, "The following warnings were generated during the operation:");
+                    LogAllMessages(warningAction, MessageType.Warning, "The following warnings were generated during the operation:");
             }
             // the operation failed
             else
             {
                 Log(failureAction, "The operation '" + caller + "' failed.");
-                LogAllMessages(failureAction, "The following messages were generated during the operation:");
+                LogAllMessages(failureAction, MessageType.Error, "The following messages were generated during the operation:");
             }
 
             return this;
@@ -315,9 +315,45 @@ namespace OperationResult
         /// </example>
         public virtual Result LogAllMessages(Action<string> action, string header = "", string footer = "")
         {
+            return LogAllMessages(action, MessageType.Any, header, footer);
+        }
+
+        /// <summary>
+        ///     Logs all messages in the message list with a <see cref="MessageType"/> matching the specified type
+        ///     to the specified logging method.  If specified, logs a header and footer message before and after the list, respectively.
+        /// </summary>
+        /// <param name="action">The logging method with which to log the messages.</param>
+        /// <param name="messageType">The MessageType of messages to log.</param>
+        /// <param name="header">A header message to log prior to the list of messages.</param>
+        /// <param name="footer">A footer message to display after the list of messages.</param>
+        /// <returns>This Result.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result
+        /// Result retVal = new Result();
+        /// 
+        /// // add an informational message
+        /// retVal.AddInfo("This is an informational message");
+        /// 
+        /// // add a warning
+        /// retVal.AddWarning("This is a warning");
+        /// 
+        /// // log the list of messages with the Info logging level
+        /// // include a header and footer
+        /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
+        /// </code>
+        /// </example>
+        public virtual Result LogAllMessages(Action<string> action, MessageType messageType = MessageType.Any, string header = "", string footer = "")
+        {
             if (header != "") Log(action, header);
 
-            foreach (Message message in Messages)
+            List<Message> messagesToLog = Messages;
+
+            // if a MessageType other than Any was specified, filter the list of messages
+            if (messageType != MessageType.Any)
+                messagesToLog = Messages.Where(m => m.Type == messageType).ToList();
+
+            foreach (Message message in messagesToLog)
                 Log(action, new string(' ', 5) + message.Text);
 
             if (footer != "") Log(action, footer);
