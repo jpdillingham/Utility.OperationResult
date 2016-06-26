@@ -107,6 +107,16 @@ retVal.AddInfo("This is an informational message");
 retVal.LogResult(logger);
 ```
 
+##### Example Output
+The following is an example of the output from the ```LogResult()``` method, taken from the included Example project:
+
+```c#
+[INFO] [x]: The operation 'ResultExample' completed successfully.
+[INFO] [x]: The following informational messages were generated during the operation:
+[INFO] [x]:      The lucky number is: 95000
+[INFO] [x]:      Attempts: 989
+```
+
 #### LogAllMessages()
 
 Logs all messages in the message list to the specified logging method.  If specified, logs a header and footer message before and after the list, respectively.
