@@ -110,7 +110,7 @@ retVal.LogResult(logger);
 ##### Example Output
 The following is an example of the output from the ```LogResult()``` method, taken from the included Example project:
 
-```c#
+```
 [INFO] [x]: The operation 'ResultExample' completed successfully.
 [INFO] [x]: The following informational messages were generated during the operation:
 [INFO] [x]:      The lucky number is: 95000
