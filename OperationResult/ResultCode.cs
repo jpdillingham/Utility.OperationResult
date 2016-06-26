@@ -1,4 +1,4 @@
-﻿namespace Symbiote.OperationResult
+﻿namespace OperationResult
 {
     /// <summary>
     /// Defines the return result of an operation.

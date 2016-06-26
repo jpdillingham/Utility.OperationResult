@@ -55,7 +55,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Symbiote.OperationResult
+namespace OperationResult
 {
     /// <summary>
     /// <para>

@@ -7,8 +7,8 @@
     <ProjectGuid>{073B06FC-14D4-4B92-920D-5CCD0DB4D652}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Symbiote.OperationResult</RootNamespace>
-    <AssemblyName>Symbiote.OperationResult</AssemblyName>
+    <RootNamespace>OperationResult</RootNamespace>
+    <AssemblyName>OperationResult</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Symbiote.OperationResult.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\OperationResult.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

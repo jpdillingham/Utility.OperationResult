@@ -1,4 +1,4 @@
-﻿namespace Symbiote.OperationResult
+﻿namespace OperationResult
 {
     /// <summary>
     /// Defines the message type for an operation message.

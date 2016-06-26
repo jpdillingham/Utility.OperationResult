@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Symbiote.OperationResult
+namespace OperationResult
 {
     /// <summary>
     /// Represents the result of an operation, including a result code and list of messages generated during the operation.
     /// </summary>
     /// <remarks>
     /// <para>
-    ///     The primary function of the Result is to store the result of the operation in the <see cref="ResultCode"/>
+    ///     The primary function of the Result is to store the result of the operation in the <see cref="Result.ResultCode"/>
     ///     property.  This property is of type <see cref="ResultCode"/>, which has members <see cref="ResultCode.Success"/>,
     ///     which represents successful operations, <see cref="ResultCode.Warning"/>, which represents operations that succeeded
     ///     but generated warning messages while executing, and <see cref="ResultCode.Failure"/>, which represents operations that failed.
     /// </para>
     /// <para>
-    ///     Operations may also generate messages as they execute.  These messages are stored in the <see cref="Messages"/> property as a <see cref="List{T}"/>
-    ///     of type <see cref="ResultMessage"/>.  Each message consists of an <see cref="ResultMessageType"/> representing the type of message
-    ///     (informational with <see cref="ResultMessageType.Info"/>, warning with <see cref="ResultMessageType.Warning"/>, and errors with
-    ///     <see cref="ResultMessageType.Error"/>), and a string containing the message itself.
+    ///     Operations may also generate messages as they execute.  These messages are stored in the <see cref="Result.Messages"/> property as a <see cref="List{T}"/>
+    ///     of type <see cref="Message"/>.  Each message consists of an <see cref="MessageType"/> representing the type of message
+    ///     (informational with <see cref="MessageType.Info"/>, warning with <see cref="MessageType.Warning"/>, and errors with
+    ///     <see cref="MessageType.Error"/>), and a string containing the message itself.
     /// </para>
     /// <para>
     ///     Messages can be added to the Result with the <see cref="AddInfo(string)"/>, <see cref="AddWarning(string)"/> and <see cref="AddError(string)"/>

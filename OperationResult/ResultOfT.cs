@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Symbiote.OperationResult
+namespace OperationResult
 {
     /// <summary>
     /// Represents the result of an operation, including a result code and list of messages generated during the operation.
@@ -19,9 +16,9 @@ namespace Symbiote.OperationResult
     /// </para>
     /// <para>
     ///     Operations may also generate messages as they execute.  These messages are stored in the <see cref="Result.Messages"/> property as a <see cref="List{T}"/>
-    ///     of type <see cref="ResultMessage"/>.  Each message consists of an <see cref="ResultMessageType"/> representing the type of message
-    ///     (informational with <see cref="ResultMessageType.Info"/>, warning with <see cref="ResultMessageType.Warning"/>, and errors with
-    ///     <see cref="ResultMessageType.Error"/>), and a string containing the message itself.
+    ///     of type <see cref="Message"/>.  Each message consists of an <see cref="MessageType"/> representing the type of message
+    ///     (informational with <see cref="MessageType.Info"/>, warning with <see cref="MessageType.Warning"/>, and errors with
+    ///     <see cref="MessageType.Error"/>), and a string containing the message itself.
     /// </para>
     /// <para>
     ///     Messages can be added to the Result with the <see cref="AddInfo(string)"/>, <see cref="AddWarning(string)"/> and <see cref="AddError(string)"/>
@@ -41,8 +38,8 @@ namespace Symbiote.OperationResult
     /// </para>
     /// <para>
     ///     The generic version of Result, <see cref="Result{T}"/>, accepts a single type parameter and includes an additional property corresponding
-    ///     to the specified type in <see cref="Result"/>.  This functionality is provided for operations which have a return value other than void, allowing these 
-    ///     methods to return the original return value in addition to the Result.  This version also includes the <see cref="SetResult(T)"/> method, which 
+    ///     to the specified type in <see cref="ReturnValue"/>.  This functionality is provided for operations which have a return value other than void, allowing these 
+    ///     methods to return the original return value in addition to the Result.  This version also includes the <see cref="SetReturnValue(T)"/> method, which 
     ///     sets the value of the Result property to the specified value.  The property may also be set directly; this method, however, allows for fluent API usage.
     /// </para>
     /// </remarks>
