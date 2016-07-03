@@ -80,6 +80,32 @@ Result retVal = new Result();
 retVal.AddError("This is an error message");
 ```
 
+#### RemoveMessages()
+
+Removes all messages of the optionally specifiied MessageType, or all messages if MessageType is not specified.
+
+##### Example
+```c#
+// create a new Result
+Result retVal = new Result();
+ 
+// add a few messages
+retVal.AddError("This is an error message");
+retVal.AddError("This is another error message");
+ 
+// remove the messages that were just added
+retVal.RemoveMessages(MessageType.Error);
+```
+#### SetResultCode()
+
+Sets the ResultCode property to the optionally supplied ResultCode, or to ResultCode.Success if ResultCode is not specified.
+
+##### Example
+```c#
+// create a new Result and initialize the ResultCode to ResultCode.Failure
+Result retVal = new Result().SetResultCode(ResultCode.Failure)
+```
+
 #### LogResult()
 
 Logs the result of the operation using the specified logger instance and the optionally specified caller as the source.

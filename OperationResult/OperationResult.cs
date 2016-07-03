@@ -328,6 +328,53 @@ namespace OperationResult
         }
 
         /// <summary>
+        ///     Removes all messages of the optionally specified MessageType, or all messages
+        ///     if MessageType is not specified.
+        /// </summary>
+        /// <param name="messageType">The type of messages to remove.</param>
+        /// <returns>This Result.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result
+        /// Result retVal = new Result();
+        /// 
+        /// // add a few messages
+        /// retVal.AddError("This is an error message");
+        /// retVal.AddError("This is another error message");
+        /// 
+        /// // remove the messages that were just added
+        /// retVal.RemoveMessages(MessageType.Error);
+        /// </code>
+        /// </example>
+        public virtual Result RemoveMessages(MessageType messageType = MessageType.Any)
+        {
+            if (messageType == MessageType.Any)
+                Messages.Clear();
+            else
+                Messages.RemoveAll(m => m.Type == messageType);
+
+            return this;
+        }
+
+        /// <summary>
+        ///     Sets the ResultCode property to the optionally supplied ResultCode,
+        ///     or to ResultCode.Success if ResultCode is not specified.
+        /// </summary>
+        /// <param name="resultCode">The ResultCode to which the ResultCode property should be set.</param>
+        /// <returns>This Result.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result and initialize the ResultCode to ResultCode.Failure
+        /// Result retVal = new Result().SetResultCode(ResultCode.Failure);
+        /// </code>
+        /// </example>
+        public virtual Result SetResultCode(ResultCode resultCode = ResultCode.Success)
+        {
+            ResultCode = resultCode;
+            return this;
+        }
+
+        /// <summary>
         ///     Logs the result of the operation using the specified logger instance and the optionally specified caller as the source.
         /// </summary>
         /// <remarks>
@@ -794,6 +841,53 @@ namespace OperationResult
         new public virtual Result<T> AddError(string message)
         {
             base.AddError(message);
+            return this;
+        }
+
+        /// <summary>
+        ///     Removes all messages of the optionally specified MessageType, or all messages
+        ///     if MessageType is not specified.
+        /// </summary>
+        /// <param name="messageType">The type of messages to remove.</param>
+        /// <returns>This Result.</returns>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // create a new Result
+        /// Result<object> retVal = new Result<object>();
+        /// 
+        /// // add a few messages
+        /// retVal.AddError("This is an error message");
+        /// retVal.AddError("This is another error message");
+        /// 
+        /// // remove the messages that were just added
+        /// retVal.RemoveMessages(MessageType.Error);
+        /// ]]>
+        /// </code>
+        /// </example>
+        new public virtual Result<T> RemoveMessages(MessageType messageType = MessageType.Any)
+        {
+            base.RemoveMessages(messageType);
+            return this;
+        }
+
+        /// <summary>
+        ///     Sets the ResultCode property to the optionally supplied ResultCode,
+        ///     or to ResultCode.Success if ResultCode is not specified.
+        /// </summary>
+        /// <param name="resultCode">The ResultCode to which the ResultCode property should be set.</param>
+        /// <returns>This Result.</returns>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // create a new Result and initialize the ResultCode to ResultCode.Failure
+        /// Result<object> retVal = new Result<object>().SetResultCode(ResultCode.Failure);
+        /// ]]>
+        /// </code>
+        /// </example>
+        new public virtual Result<T> SetResultCode(ResultCode resultCode = ResultCode.Success)
+        {
+            base.SetResultCode(resultCode);
             return this;
         }
 
