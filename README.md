@@ -163,7 +163,7 @@ retVal.AddWarning("This is a warning");
 retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
 ```
 
-#### Last*Message()
+#### GetLast[Info|Warning|Error]()
 
 Returns the most recently added informational, warning or error message contained within the message list.
 
@@ -176,7 +176,7 @@ Result retVal = new Result();
 retVal.AddInfo("This is an informational message");
 
 // print the last info message
-Console.WriteLine(retVal.LastInfoMessage());
+Console.WriteLine(retVal.GetLastInfo());
 ```
 
 #### Incorporate()
