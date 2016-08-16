@@ -277,8 +277,7 @@ namespace Utility.OperationResult
         /// </example>
         public new virtual Result<T> LogResult(Logger logger, [CallerMemberName]string caller = "")
         {
-            base.LogResult(logger, caller);
-            return this;
+            return LogResult(logger.Info, logger.Warn, logger.Error, caller);
         }
 
         /// <summary>
@@ -313,8 +312,7 @@ namespace Utility.OperationResult
         /// </example>
         public new virtual Result<T> LogResult(Action<string> action, [CallerMemberName]string caller = "")
         {
-            base.LogResult(action, caller);
-            return this;
+            return LogResult(action, action, action, caller);
         }
 
         /// <summary>
@@ -351,7 +349,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual Result LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
+        public new virtual Result<T> LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
         {
             base.LogResult(successAction, warningAction, failureAction, caller);
             return this;
