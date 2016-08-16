@@ -7,8 +7,8 @@
     <ProjectGuid>{7E8F82B5-3839-45BA-9B70-7D0B870449C3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Examples</RootNamespace>
-    <AssemblyName>Examples</AssemblyName>
+    <RootNamespace>Utility.OperationResult.Examples</RootNamespace>
+    <AssemblyName>Utility.OperationResult.Examples</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

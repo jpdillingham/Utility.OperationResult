@@ -1,13 +1,23 @@
 ﻿using System;
 using NLog;
 
-namespace OperationResult.Examples
+namespace Utility.OperationResult.Examples
 {
-    class Program
+    /// <summary>
+    ///     The main application class.
+    /// </summary>
+    public class Program
     {
+        /// <summary>
+        ///     The logger for the application.
+        /// </summary>
         private static Logger logger = LogManager.GetLogger("x");
 
-        static void Main(string[] args)
+        /// <summary>
+        ///     The main application entry point.
+        /// </summary>
+        /// <param name="args">The command line arguments.</param>
+        public static void Main(string[] args)
         {
             string msg = "Press any key to run the examples or Enter to exit.";
             Console.WriteLine(msg);
@@ -18,31 +28,38 @@ namespace OperationResult.Examples
             // loop until Enter is pressed
             while (Console.ReadKey(true).Key != ConsoleKey.Enter)
             {
-                //-------------------------------------------------------------------------------------
+                // -------------------------------------------------------------------------------------
                 // fetch a typeless result and print a message after examining the result
                 Result firstResult = ResultExample(random);
 
                 // compare the ResultCode to the desired ResultCode
                 if (firstResult.ResultCode != ResultCode.Success)
+                {
                     logger.Info("Failed to find a match.");
+                }
                 else
+                {
                     logger.Info("Found a result!");
-
+                }
                 
-                //-------------------------------------------------------------------------------------
+                // -------------------------------------------------------------------------------------
                 // fetch a typed result
                 Result<int> secondResult = ResultTExample(random);
 
                 // check the ResultCode using the explicit operator
                 // this is shorthand for the expression (secondResult.ResultCode == ResultCode.Success)
                 if (!secondResult)
+                {
                     logger.Info("Failed to find a match.");
+                }
                 else
+                {
                     logger.Info("Found a result! Result: " + secondResult.ReturnValue);
+                }
 
                 logger.Info("-----------------------------------------------");
 
-                //-------------------------------------------------------------------------------------
+                // -------------------------------------------------------------------------------------
                 // combine the results
                 firstResult.Incorporate(secondResult);
 
@@ -54,6 +71,11 @@ namespace OperationResult.Examples
             }
         }
 
+        /// <summary>
+        ///     Loops 1000 times and tries to find a multiple of 1000 randomly.
+        /// </summary>
+        /// <param name="random">The RNG used to generate random numbers.</param>
+        /// <returns>A Result containing the result of the operation.</returns>
         public static Result ResultExample(Random random)
         {
             // create a Result
@@ -76,21 +98,30 @@ namespace OperationResult.Examples
                     result.AddInfo("Attempts: " + attempts);
                     break;
                 }
-                // if not a multiple, continue trying
                 else
+                {
+                    // if not a multiple, continue trying
                     attempts++;
+                }
             }
 
             // if no messages were added, we didn't find a match.
             // add an error message which sets ResultCode to Failure.
             if (result.Messages.Count == 0)
+            {
                 result.AddError("Didn't find a matching number.");
+            }
 
             // log the results and return
             result.LogResult(logger.Info);
             return result;
         }
 
+        /// <summary>
+        ///     Loops 1000 times and tries to find a multiple of 1000.
+        /// </summary>
+        /// <param name="random">The RNG used to generate random numbers.</param>
+        /// <returns>A Result containing an integer and the result of the operation.</returns>
         public static Result<int> ResultTExample(Random random)
         {
             // create a new result with ReturnValue of type int
@@ -115,15 +146,19 @@ namespace OperationResult.Examples
                     result.ReturnValue = num;
                     break;
                 }
-                // if not a multiple, continue trying
                 else
+                {
+                    // if not a multiple, continue trying
                     attempts++;
+                }
             }
 
             // if no messages were added, we didn't find a match.
             // add an error message which sets ResultCode to Failure.
             if (result.Messages.Count == 0)
+            {
                 result.AddError("Didn't find a matching number.");
+            }
             
             // log the results and return
             result.LogResult(logger.Info);
