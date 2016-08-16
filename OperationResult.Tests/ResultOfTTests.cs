@@ -7,9 +7,9 @@ using Xunit;
 namespace Utility.OperationResult.Tests
 {
     /// <summary>
-    ///     Tests the <see cref="Result"/> class.
+    ///     Tests the <see cref="ResultOfT"/> class.
     /// </summary>
-    public class ResultTests
+    public class ResultOfTTests
     {
         /// <summary>
         ///     The xLogger instance to use for the tests.
@@ -17,9 +17,9 @@ namespace Utility.OperationResult.Tests
         private static Logger logger = (Logger)LogManager.GetCurrentClassLogger(typeof(Logger));
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ResultTests"/> class.
+        ///     Initializes a new instance of the <see cref="ResultOfTTests"/> class.
         /// </summary>
-        public ResultTests()
+        public ResultOfTTests()
         {
             // configure the logger with a debugger target
             LoggingConfiguration config = new LoggingConfiguration();
@@ -34,28 +34,14 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void Constructor()
         {
-            Result testblank = new Result();
+            Result<bool> testblank = new Result<bool>();
 
             Assert.Equal(ResultCode.Success, testblank.ResultCode);
 
-            Result test = new Result(ResultCode.Warning);
+            Result<int> test = new Result<int>(ResultCode.Warning);
 
             Assert.Equal(ResultCode.Warning, test.ResultCode);
-        }
-
-        /// <summary>
-        ///     Tests the implicit boolean operator for <see cref="Result"/>.
-        /// </summary>
-        [Fact]
-        public void ImplicitOperator()
-        {
-            Result test = new Result();
-
-            Assert.Equal(true, test);
-
-            Assert.Equal(test, test.AddError("test"));
-
-            Assert.Equal(false, test);
+            Assert.Equal(default(int), test.ReturnValue);
         }
 
         /// <summary>
@@ -64,7 +50,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void AddInfo()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
 
             Assert.Equal(test, test.AddInfo("test"));
 
@@ -80,7 +66,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void AddWarning()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
 
             Assert.Equal(test, test.AddWarning("test"));
 
@@ -96,7 +82,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void AddError()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
 
             Assert.Equal(test, test.AddError("test"));
 
@@ -112,7 +98,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void RemoveMessages()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
 
             test.AddError("one");
             test.AddError("two");
@@ -141,7 +127,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void SetResultCode()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
 
             Assert.Equal(ResultCode.Success, test.ResultCode);
 
@@ -156,7 +142,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void LogResult()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
 
             Assert.Equal(test, test.LogResult(logger));
             Assert.Equal(test, test.LogResult(logger.Info));
@@ -177,7 +163,7 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void LogAllMessages()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
             test.AddInfo("test");
 
             Assert.Equal(test, test.LogAllMessages(logger.Info, "header", "footer"));
@@ -191,15 +177,27 @@ namespace Utility.OperationResult.Tests
         [Fact]
         public void Incorporate()
         {
-            Result test = new Result();
+            Result<int> test = new Result<int>();
             test.AddError("test");
 
-            Result testTwo = new Result();
+            Result<int> testTwo = new Result<int>();
 
             testTwo.Incorporate(test);
 
             Assert.Equal(test.ResultCode, testTwo.ResultCode);
             Assert.Equal(test.Messages, testTwo.Messages);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="Result{T}.SetReturnValue(T)"/>.
+        /// </summary>
+        [Fact]
+        public void SetReturnValue()
+        {
+            Result<int> test = new Result<int>();
+
+            Assert.Equal(test, test.SetReturnValue(1));
+            Assert.Equal(1, test.ReturnValue);
         }
     }
 }

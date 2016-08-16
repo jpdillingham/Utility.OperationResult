@@ -104,7 +104,7 @@ namespace Utility.OperationResult
         /// <summary>
         /// Initializes a new instance of the <see cref="Result{T}"/> class.
         /// </summary>
-        public Result() : base()
+        public Result(ResultCode initialResultCode = ResultCode.Success) : base(initialResultCode)
         {
             ReturnValue = default(T);
         }
