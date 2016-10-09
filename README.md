@@ -6,7 +6,7 @@
 
 The OperationResult namespace contains two types; the ```Result``` type and the generic extension type ```Result{T}```.
 
-Both types are designed to be used as method return types.  Both types contain a ```ResultCode``` enumeration used to describe the result of the operation in terms of success, success with warnings, or failure, and a ```List{T}"``` of type ```Message``` containing a list of messages generated during the operation.
+Both types are designed to be used as method return types.  Both types contain a ```ResultCode``` enumeration used to describe the result of the operation in terms of success, success with warnings, or failure, and a ```List{T}``` of type ```Message``` containing a list of messages generated during the operation.
 
 These types allow the programmer to defer logging to other parts of the application code, as well as allowing more detailed information about
 the operation to be conveyed to calling members without throwing expensive exceptions or passing special values in return types.
@@ -168,7 +168,7 @@ retVal.AddWarning("This is a warning");
 retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
 ```
 
-#### GetLast[Info|Warning|Error]()
+#### GetLast\[Info|Warning|Error\]()
 
 Returns the most recently added informational, warning or error message contained within the message list.
 
