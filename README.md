@@ -2,6 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/vy64nop0tqeqdq9i?svg=true)](https://ci.appveyor.com/project/jpdillingham/operationresult)
 [![codecov](https://codecov.io/gh/jpdillingham/OperationResult/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/OperationResult)
+[![Dependency Status](https://www.versioneye.com/user/projects/581c04a04304530b557dc736/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/581c04a04304530b557dc736)
 [![NuGet version](https://badge.fury.io/nu/Utility.OperationResult.svg)](https://badge.fury.io/nu/Utility.OperationResult)
 
 The OperationResult namespace contains two types; the ```Result``` type and the generic extension type ```Result{T}```.
