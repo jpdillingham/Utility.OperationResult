@@ -78,9 +78,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OperationResult\OperationResult.csproj">
+    <ProjectReference Include="..\Utility.OperationResult\Utility.OperationResult.csproj">
       <Project>{073b06fc-14d4-4b92-920d-5ccd0db4d652}</Project>
-      <Name>OperationResult</Name>
+      <Name>Utility.OperationResult</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

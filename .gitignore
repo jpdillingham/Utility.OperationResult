@@ -246,3 +246,6 @@ ModelManifest.xml
 
 # StyleCop
 *.StyleCop
+
+# OpenCover.UI
+OpenCover/*

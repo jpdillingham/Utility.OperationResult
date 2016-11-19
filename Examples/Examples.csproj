@@ -61,9 +61,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OperationResult\OperationResult.csproj">
+    <ProjectReference Include="..\Utility.OperationResult\Utility.OperationResult.csproj">
       <Project>{073B06FC-14D4-4B92-920D-5CCD0DB4D652}</Project>
-      <Name>OperationResult</Name>
+      <Name>Utility.OperationResult</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
