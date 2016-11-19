@@ -2,7 +2,7 @@ version: 0.9.0.{build}
 before_build:
 - cmd: nuget restore
 build:
-  project: OperationResult.sln
+  project: Utility.OperationResult.sln
   verbosity: minimal
 test_script:
 - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"C:\projects\utility-operationresult\operationresult.Tests\bin\Debug\Utility.OperationResult.Tests.dll -noshadow -appveyor" -returntargetcode -filter:"+[Utility.OperationResult*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\Utility.OperationResult_coverage.xml
