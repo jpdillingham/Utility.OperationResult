@@ -1,8 +1,7 @@
 # OperationResult
 
 [![Build status](https://ci.appveyor.com/api/projects/status/xej17n86fnpwbspa?svg=true)](https://ci.appveyor.com/project/jpdillingham/utility-operationresult)
-[![codecov](https://codecov.io/gh/jpdillingham/OperationResult/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/OperationResult)
-[![Dependency Status](https://www.versioneye.com/user/projects/581c04a04304530b557dc736/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/581c04a04304530b557dc736)
+[![codecov](https://codecov.io/gh/jpdillingham/Utility.OperationResult/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/Utility.OperationResult)
 [![NuGet version](https://badge.fury.io/nu/Utility.OperationResult.svg)](https://badge.fury.io/nu/Utility.OperationResult)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/Utility.OperationResult/blob/master/LICENSE)
 
