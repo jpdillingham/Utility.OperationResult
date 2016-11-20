@@ -97,26 +97,14 @@ namespace Utility.OperationResult
     /// </para>
     /// </remarks>
     /// <typeparam name="T">The type of the object contained within the Result property.</typeparam>
-    public class Result<T> : Result, IResult<T>
+    public interface IResult<T> : IResult
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Result{T}"/> class.
-        /// </summary>
-        public Result(ResultCode initialResultCode = ResultCode.Success) : base(initialResultCode)
-        {
-            ReturnValue = default(T);
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets or sets the object containing the return value of the operation.
         /// </summary>
-        public T ReturnValue { get; set; }
+        T ReturnValue { get; set; }
 
         #endregion
 
@@ -142,11 +130,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddInfo(string message)
-        {
-            base.AddInfo(message);
-            return this;
-        }
+        new IResult<T> AddInfo(string message);
 
         /// <summary>
         /// Adds a message of type Warning to the message list and sets the ResultCode to Warning.
@@ -164,11 +148,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddWarning(string message)
-        {
-            base.AddWarning(message);
-            return this;
-        }
+        new IResult<T> AddWarning(string message);
 
         /// <summary>
         /// Adds a message of type Error to the message list and sets the ResultCode to Error.
@@ -186,11 +166,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddError(string message)
-        {
-            base.AddError(message);
-            return this;
-        }
+        new IResult<T> AddError(string message);
 
         /// <summary>
         ///     Removes all messages of the optionally specified MessageType, or all messages
@@ -213,11 +189,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> RemoveMessages(MessageType messageType = MessageType.Any)
-        {
-            base.RemoveMessages(messageType);
-            return this;
-        }
+        new IResult<T> RemoveMessages(MessageType messageType = MessageType.Any);
 
         /// <summary>
         ///     Sets the ResultCode property to the optionally supplied ResultCode,
@@ -233,11 +205,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> SetResultCode(ResultCode resultCode = ResultCode.Success)
-        {
-            base.SetResultCode(resultCode);
-            return this;
-        }
+        new IResult<T> SetResultCode(ResultCode resultCode = ResultCode.Success);
 
         /// <summary>
         ///     Logs the result of the operation using the specified logger instance and the optionally specified caller as the source.
@@ -275,10 +243,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Logger logger, [CallerMemberName]string caller = "")
-        {
-            return LogResult(logger.Info, logger.Warn, logger.Error, caller);
-        }
+        new IResult<T> LogResult(Logger logger, [CallerMemberName]string caller = "");
 
         /// <summary>
         ///     Logs the result of the operation using the specified logging method and the optionally specified caller as the source.
@@ -310,10 +275,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Action<string> action, [CallerMemberName]string caller = "")
-        {
-            return LogResult(action, action, action, caller);
-        }
+        new IResult<T> LogResult(Action<string> action, [CallerMemberName]string caller = "");
 
         /// <summary>
         ///     Logs the result of the operation using the three specified logging methods and the optionally specified caller as the source.
@@ -349,11 +311,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
-        {
-            base.LogResult(successAction, warningAction, failureAction, caller);
-            return this;
-        }
+        new IResult<T> LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "");
 
         /// <summary>
         /// Logs all messages in the message list to the specified logging method.  If specified, logs a header and footer message before and after the list, respectively.
@@ -380,11 +338,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogAllMessages(Action<string> action, string header = "", string footer = "")
-        {
-            base.LogAllMessages(action, header, footer);
-            return this;
-        }
+        new IResult<T> LogAllMessages(Action<string> action, string header = "", string footer = "");
 
         /// <summary>
         ///     Adds details from the specified Result to this Result, including all Messages and the 
@@ -416,11 +370,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> Incorporate(IResult result)
-        {
-            base.Incorporate(result);
-            return this;
-        }
+        new IResult<T> Incorporate(IResult result);
 
         /// <summary>
         /// Sets the ReturnValue property to the specified value.
@@ -439,11 +389,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public IResult<T> SetReturnValue(T returnValue)
-        {
-            ReturnValue = returnValue;
-            return this;
-        }
+        IResult<T> SetReturnValue(T returnValue);
 
         #endregion
 

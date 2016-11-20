@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Enumerations.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="IResult.cs" />
+    <Compile Include="IResultOfT.cs" />
     <Compile Include="ResultOfT.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

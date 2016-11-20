@@ -84,14 +84,14 @@ namespace Utility.OperationResult
     ///     so that most logging functionality can be used by supplying a delegate method which accepts a string parameter.
     /// </para>
     /// <para>
-    ///     The <see cref="Incorporate(Result)"/> method is provided so that Result objects can be merged with one another.  The instance
+    ///     The <see cref="Incorporate(IResult)"/> method is provided so that Result objects can be merged with one another.  The instance
     ///     on which the Incorporate() method is invoked will copy all messages from the specified Result into it's list, and if the ResultCode
     ///     of the specified Result is "less than" that of the current instance, the instance will take on the new ResultCode.  For instance, if the invoking
     ///     instance has a ResultCode of Warning and A Result with a ResultCode of Failure is incorporated, the ResultCode of the invoking instance
     ///     will be changed to Failure.  This functionality is provided for nested or sequential operations.
     /// </para>
     /// </remarks>
-    public class Result
+    public class Result : IResult
     {
         #region Constructors
 
@@ -177,7 +177,7 @@ namespace Utility.OperationResult
         /// retVal.AddInfo("This is an informational message");
         /// </code>
         /// </example>
-        public virtual Result AddInfo(string message)
+        public virtual IResult AddInfo(string message)
         {
             Messages.Add(new Message(MessageType.Info, message));
             return this;
@@ -197,7 +197,7 @@ namespace Utility.OperationResult
         /// retVal.AddWarning("This is a warning message");
         /// </code>
         /// </example>
-        public virtual Result AddWarning(string message)
+        public virtual IResult AddWarning(string message)
         {
             Messages.Add(new Message(MessageType.Warning, message));
             ResultCode = ResultCode.Warning;
@@ -218,7 +218,7 @@ namespace Utility.OperationResult
         /// retVal.AddError("This is an error message");
         /// </code>
         /// </example>
-        public virtual Result AddError(string message)
+        public virtual IResult AddError(string message)
         {
             Messages.Add(new Message(MessageType.Error, message));
             ResultCode = ResultCode.Failure;
@@ -244,7 +244,7 @@ namespace Utility.OperationResult
         /// retVal.RemoveMessages(MessageType.Error);
         /// </code>
         /// </example>
-        public virtual Result RemoveMessages(MessageType messageType = MessageType.Any)
+        public virtual IResult RemoveMessages(MessageType messageType = MessageType.Any)
         {
             if (messageType == MessageType.Any)
             {
@@ -270,7 +270,7 @@ namespace Utility.OperationResult
         /// Result retVal = new Result().SetResultCode(ResultCode.Failure);
         /// </code>
         /// </example>
-        public virtual Result SetResultCode(ResultCode resultCode = ResultCode.Success)
+        public virtual IResult SetResultCode(ResultCode resultCode = ResultCode.Success)
         {
             ResultCode = resultCode;
             return this;
@@ -310,7 +310,7 @@ namespace Utility.OperationResult
         /// retVal.LogResult(logger);
         /// </code>
         /// </example>
-        public virtual Result LogResult(Logger logger, [CallerMemberName]string caller = "")
+        public virtual IResult LogResult(Logger logger, [CallerMemberName]string caller = "")
         {
             return LogResult(logger.Info, logger.Warn, logger.Error, caller);
         }
@@ -343,7 +343,7 @@ namespace Utility.OperationResult
         /// retVal.LogResult(logger.Debug);
         /// </code>
         /// </example>
-        public virtual Result LogResult(Action<string> action, [CallerMemberName]string caller = "")
+        public virtual IResult LogResult(Action<string> action, [CallerMemberName]string caller = "")
         {
             return LogResult(action, action, action, caller);
         }
@@ -380,7 +380,7 @@ namespace Utility.OperationResult
         /// retVal.LogResult(logger.Trace, logger.Debug, logger.Warn);
         /// </code>
         /// </example>
-        public virtual Result LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
+        public virtual IResult LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
         {
             // the operation suceeded, with or without warnings
             if (ResultCode != ResultCode.Failure)
@@ -432,7 +432,7 @@ namespace Utility.OperationResult
         /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
         /// </code>
         /// </example>
-        public virtual Result LogAllMessages(Action<string> action, string header = "", string footer = "")
+        public virtual IResult LogAllMessages(Action<string> action, string header = "", string footer = "")
         {
             return LogAllMessages(action, MessageType.Any, header, footer);
         }
@@ -462,7 +462,7 @@ namespace Utility.OperationResult
         /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
         /// </code>
         /// </example>
-        public virtual Result LogAllMessages(Action<string> action, MessageType messageType = MessageType.Any, string header = "", string footer = "")
+        public virtual IResult LogAllMessages(Action<string> action, MessageType messageType = MessageType.Any, string header = "", string footer = "")
         {
             if (header != string.Empty)
             {
@@ -581,7 +581,7 @@ namespace Utility.OperationResult
         /// outer.LogResult(logger); 
         /// </code>
         /// </example>
-        public virtual Result Incorporate(Result result)
+        public virtual IResult Incorporate(IResult result)
         {
             foreach (Message message in result.Messages)
             {

@@ -12,12 +12,12 @@
       █
  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄  ▄▄ ▄▄   ▄▄▄▄ ▄▄     ▄▄     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄ ▄ 
  █████████████████████████████████████████████████████████████ ███████████████ ██  ██ ██   ████ ██     ██     ████████████████ █ █ 
-      ▄  
+      ▄   
       █  Encapsulates the result of any operation. Includes a result code and a list of messages generated during the operation.
       █
       █  Additional methods provide logging functionality for convenience, and a generic extension class is provided to allow for 
       █  Result instances which contain an object as a return value.
-      █  
+      █
       █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀ ▀ ▀▀▀     ▀▀               ▀   
       █  The MIT License (MIT)
       █  
@@ -40,11 +40,11 @@
       █  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
       █  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
       █  SOFTWARE. 
-      █  
+      █ 
       █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀     ▀▀▀   
       █  Dependencies:
       █     └─ NLog (https://www.nuget.org/packages/NLog/)
-      █
+      █     
       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██ 
                                                                                                    ██ 
                                                                                                ▀█▄ ██ ▄█▀ 
@@ -89,34 +89,20 @@ namespace Utility.OperationResult
     ///     instance has a ResultCode of Warning and A Result with a ResultCode of Failure is incorporated, the ResultCode of the invoking instance
     ///     will be changed to Failure.  This functionality is provided for nested or sequential operations.
     /// </para>
-    /// <para>
-    ///     The generic version of Result, <see cref="Result{T}"/>, accepts a single type parameter and includes an additional property corresponding
-    ///     to the specified type in <see cref="ReturnValue"/>.  This functionality is provided for operations which have a return value other than void, allowing these 
-    ///     methods to return the original return value in addition to the Result.  This version also includes the <see cref="SetReturnValue(T)"/> method, which 
-    ///     sets the value of the Result property to the specified value.  The property may also be set directly; this method, however, allows for fluent API usage.
-    /// </para>
     /// </remarks>
-    /// <typeparam name="T">The type of the object contained within the Result property.</typeparam>
-    public class Result<T> : Result, IResult<T>
+    public interface IResult
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Result{T}"/> class.
-        /// </summary>
-        public Result(ResultCode initialResultCode = ResultCode.Success) : base(initialResultCode)
-        {
-            ReturnValue = default(T);
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
-        /// Gets or sets the object containing the return value of the operation.
+        /// Gets or sets the result of the operation.
         /// </summary>
-        public T ReturnValue { get; set; }
+        ResultCode ResultCode { get; }
+
+        /// <summary>
+        /// Gets or sets the list of messages generated during the operation.
+        /// </summary>
+        List<Message> Messages { get; }
 
         #endregion
 
@@ -133,20 +119,14 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddInfo("This is an informational message");
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddInfo(string message)
-        {
-            base.AddInfo(message);
-            return this;
-        }
+        IResult AddInfo(string message);
 
         /// <summary>
         /// Adds a message of type Warning to the message list and sets the ResultCode to Warning.
@@ -155,20 +135,14 @@ namespace Utility.OperationResult
         /// <returns>This Result</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddWarning("This is a warning message");
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddWarning(string message)
-        {
-            base.AddWarning(message);
-            return this;
-        }
+        IResult AddWarning(string message);
 
         /// <summary>
         /// Adds a message of type Error to the message list and sets the ResultCode to Error.
@@ -177,20 +151,14 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddError("This is an error message");
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddError(string message)
-        {
-            base.AddError(message);
-            return this;
-        }
+        IResult AddError(string message);
 
         /// <summary>
         ///     Removes all messages of the optionally specified MessageType, or all messages
@@ -200,9 +168,8 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
         /// // create a new Result
-        /// Result<object> retVal = new Result<object>();
+        /// Result retVal = new Result();
         /// 
         /// // add a few messages
         /// retVal.AddError("This is an error message");
@@ -210,14 +177,9 @@ namespace Utility.OperationResult
         /// 
         /// // remove the messages that were just added
         /// retVal.RemoveMessages(MessageType.Error);
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> RemoveMessages(MessageType messageType = MessageType.Any)
-        {
-            base.RemoveMessages(messageType);
-            return this;
-        }
+        IResult RemoveMessages(MessageType messageType = MessageType.Any);
 
         /// <summary>
         ///     Sets the ResultCode property to the optionally supplied ResultCode,
@@ -227,17 +189,11 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
         /// // create a new Result and initialize the ResultCode to ResultCode.Failure
-        /// Result<object> retVal = new Result<object>().SetResultCode(ResultCode.Failure);
-        /// ]]>
+        /// Result retVal = new Result().SetResultCode(ResultCode.Failure);
         /// </code>
         /// </example>
-        public new virtual IResult<T> SetResultCode(ResultCode resultCode = ResultCode.Success)
-        {
-            base.SetResultCode(resultCode);
-            return this;
-        }
+        IResult SetResultCode(ResultCode resultCode = ResultCode.Success);
 
         /// <summary>
         ///     Logs the result of the operation using the specified logger instance and the optionally specified caller as the source.
@@ -261,9 +217,8 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddInfo("This is an informational message");
@@ -272,13 +227,9 @@ namespace Utility.OperationResult
         /// // use logger.Info for basic and informational messages, logger.Warn for warnings
         /// // and logger.Error for errors.
         /// retVal.LogResult(logger);
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Logger logger, [CallerMemberName]string caller = "")
-        {
-            return LogResult(logger.Info, logger.Warn, logger.Error, caller);
-        }
+        IResult LogResult(Logger logger, [CallerMemberName]string caller = "");
 
         /// <summary>
         ///     Logs the result of the operation using the specified logging method and the optionally specified caller as the source.
@@ -298,22 +249,17 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddInfo("This is an informational message");
         /// 
         /// // log the result using the Debug logging level for all message types.
         /// retVal.LogResult(logger.Debug);
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Action<string> action, [CallerMemberName]string caller = "")
-        {
-            return LogResult(action, action, action, caller);
-        }
+        IResult LogResult(Action<string> action, [CallerMemberName]string caller = "");
 
         /// <summary>
         ///     Logs the result of the operation using the three specified logging methods and the optionally specified caller as the source.
@@ -335,9 +281,8 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddInfo("This is an informational message");
@@ -346,14 +291,9 @@ namespace Utility.OperationResult
         /// // use logger.Trace for basic and informational messages, logger.Debug for warnings
         /// // and logger.Warn for errors.
         /// retVal.LogResult(logger.Trace, logger.Debug, logger.Warn);
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
-        {
-            base.LogResult(successAction, warningAction, failureAction, caller);
-            return this;
-        }
+        IResult LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "");
 
         /// <summary>
         /// Logs all messages in the message list to the specified logging method.  If specified, logs a header and footer message before and after the list, respectively.
@@ -364,9 +304,8 @@ namespace Utility.OperationResult
         /// <returns>This Result.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create a new Result<T>
-        /// Result<object> retVal = new Result<object>();
+        /// // create a new Result
+        /// Result retVal = new Result();
         /// 
         /// // add an informational message
         /// retVal.AddInfo("This is an informational message");
@@ -377,33 +316,108 @@ namespace Utility.OperationResult
         /// // log the list of messages with the Info logging level
         /// // include a header and footer
         /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogAllMessages(Action<string> action, string header = "", string footer = "")
-        {
-            base.LogAllMessages(action, header, footer);
-            return this;
-        }
+        IResult LogAllMessages(Action<string> action, string header = "", string footer = "");
+
+        /// <summary>
+        ///     Logs all messages in the message list with a <see cref="MessageType"/> matching the specified type
+        ///     to the specified logging method.  If specified, logs a header and footer message before and after the list, respectively.
+        /// </summary>
+        /// <param name="action">The logging method with which to log the messages.</param>
+        /// <param name="messageType">The MessageType of messages to log.</param>
+        /// <param name="header">A header message to log prior to the list of messages.</param>
+        /// <param name="footer">A footer message to display after the list of messages.</param>
+        /// <returns>This Result.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result
+        /// Result retVal = new Result();
+        /// 
+        /// // add an informational message
+        /// retVal.AddInfo("This is an informational message");
+        /// 
+        /// // add a warning
+        /// retVal.AddWarning("This is a warning");
+        /// 
+        /// // log the list of messages with the Info logging level
+        /// // include a header and footer
+        /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
+        /// </code>
+        /// </example>
+        IResult LogAllMessages(Action<string> action, MessageType messageType = MessageType.Any, string header = "", string footer = "");
+
+        /// <summary>
+        /// Returns the most recently added informational message contained within the message list.
+        /// </summary>
+        /// <returns>The message.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result
+        /// Result retVal = new Result();
+        /// 
+        /// // add an informational message
+        /// retVal.AddInfo("This is an informational message");
+        /// 
+        /// // print the last info message
+        /// Console.WriteLine(retVal.LastInfoMessage());
+        /// </code>
+        /// </example>
+        string GetLastInfo();
+
+        /// <summary>
+        /// Returns the most recently added warning message contained within the message list.
+        /// </summary>
+        /// <returns>The message.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result
+        /// Result retVal = new Result();
+        /// 
+        /// // add a warning message
+        /// retVal.AddWarning("This is a warning");
+        /// 
+        /// // print the last warning
+        /// Console.WriteLine(retVal.LastWarningMessage());
+        /// </code>
+        /// </example>
+        string GetLastWarning();
+
+        /// <summary>
+        /// Returns the most recently added error message contained within the message list.
+        /// </summary>
+        /// <returns>The message.</returns>
+        /// <example>
+        /// <code>
+        /// // create a new Result
+        /// Result retVal = new Result();
+        /// 
+        /// // add an error message
+        /// retVal.AddError("This is an error");
+        /// 
+        /// // print the last error
+        /// Console.WriteLine(retVal.GetLastError());
+        /// </code>
+        /// </example>
+        string GetLastError();
 
         /// <summary>
         ///     Adds details from the specified Result to this Result, including all Messages and the 
         ///     ResultCode, if lesser than the ResultCode of this instance.
         /// </summary>
         /// <param name="result">The Result from which to copy the Messages.</param>
-        /// <returns>A Result containing the result of the operation and the return value.</returns>
+        /// <returns>A Result containing the result of the operation.</returns>
         /// <example>
         /// <code>
-        /// <![CDATA[
-        /// // create an "outer" Result<T>
+        /// // create an "outer" Result
         /// // the ResultCode of this instance is Success by default.
-        /// Result<object> outer = new Result<object>();
+        /// Result outer = new Result();
         /// 
         /// // ... some logic ...
         /// 
-        /// // create an "inner" Result<T>
+        /// // create an "inner" Result
         /// // set this to the result of a different method
-        /// Result<object> inner = MyMethod<object>();
+        /// Result inner = MyMethod();
         /// 
         /// // incorporate the inner Result into the outer
         /// // this copies all messages and, if the inner instance's ResultCode
@@ -413,37 +427,9 @@ namespace Utility.OperationResult
         /// // log the result.  the combined list of messages from both inner and outer
         /// // are logged, and the ResultCode is equal to the lesser of the two ResultCodes.
         /// outer.LogResult(logger); 
-        /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> Incorporate(IResult result)
-        {
-            base.Incorporate(result);
-            return this;
-        }
-
-        /// <summary>
-        /// Sets the ReturnValue property to the specified value.
-        /// </summary>
-        /// <param name="returnValue">The value to which the Result property is to be set.</param>
-        /// <returns>This Result.</returns>
-        /// <example>
-        /// <code>
-        /// <![CDATA[
-        /// ///create a new Result
-        /// Result<string> result = new Result<string>()
-        /// result
-        ///   .SetReturnValue("Hello World!")
-        ///   .AddInfo("Set value.")
-        ///   .LogResult(logger.Info);
-        /// ]]>
-        /// </code>
-        /// </example>
-        public IResult<T> SetReturnValue(T returnValue)
-        {
-            ReturnValue = returnValue;
-            return this;
-        }
+        IResult Incorporate(IResult result);
 
         #endregion
 
