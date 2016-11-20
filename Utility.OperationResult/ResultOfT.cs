@@ -142,7 +142,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddInfo(string message)
+        public new virtual Result<T> AddInfo(string message)
         {
             base.AddInfo(message);
             return this;
@@ -164,7 +164,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddWarning(string message)
+        public new virtual Result<T> AddWarning(string message)
         {
             base.AddWarning(message);
             return this;
@@ -186,7 +186,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> AddError(string message)
+        public new virtual Result<T> AddError(string message)
         {
             base.AddError(message);
             return this;
@@ -213,7 +213,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> RemoveMessages(MessageType messageType = MessageType.Any)
+        public new virtual Result<T> RemoveMessages(MessageType messageType = MessageType.Any)
         {
             base.RemoveMessages(messageType);
             return this;
@@ -233,7 +233,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> SetResultCode(ResultCode resultCode = ResultCode.Success)
+        public new virtual Result<T> SetResultCode(ResultCode resultCode = ResultCode.Success)
         {
             base.SetResultCode(resultCode);
             return this;
@@ -275,7 +275,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Logger logger, [CallerMemberName]string caller = "")
+        public new virtual Result<T> LogResult(Logger logger, [CallerMemberName]string caller = "")
         {
             return LogResult(logger.Info, logger.Warn, logger.Error, caller);
         }
@@ -310,7 +310,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Action<string> action, [CallerMemberName]string caller = "")
+        public new virtual Result<T> LogResult(Action<string> action, [CallerMemberName]string caller = "")
         {
             return LogResult(action, action, action, caller);
         }
@@ -349,7 +349,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
+        public new virtual Result<T> LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "")
         {
             base.LogResult(successAction, warningAction, failureAction, caller);
             return this;
@@ -380,7 +380,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> LogAllMessages(Action<string> action, string header = "", string footer = "")
+        public new virtual Result<T> LogAllMessages(Action<string> action, string header = "", string footer = "")
         {
             base.LogAllMessages(action, header, footer);
             return this;
@@ -416,7 +416,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public new virtual IResult<T> Incorporate(IResult result)
+        public new virtual Result<T> Incorporate(IResult result)
         {
             base.Incorporate(result);
             return this;
@@ -439,7 +439,7 @@ namespace Utility.OperationResult
         /// ]]>
         /// </code>
         /// </example>
-        public IResult<T> SetReturnValue(T returnValue)
+        public Result<T> SetReturnValue(T returnValue)
         {
             ReturnValue = returnValue;
             return this;

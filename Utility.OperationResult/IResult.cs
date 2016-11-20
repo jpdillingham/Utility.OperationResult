@@ -126,7 +126,7 @@ namespace Utility.OperationResult
         /// retVal.AddInfo("This is an informational message");
         /// </code>
         /// </example>
-        IResult AddInfo(string message);
+        Result AddInfo(string message);
 
         /// <summary>
         /// Adds a message of type Warning to the message list and sets the ResultCode to Warning.
@@ -142,7 +142,7 @@ namespace Utility.OperationResult
         /// retVal.AddWarning("This is a warning message");
         /// </code>
         /// </example>
-        IResult AddWarning(string message);
+        Result AddWarning(string message);
 
         /// <summary>
         /// Adds a message of type Error to the message list and sets the ResultCode to Error.
@@ -158,7 +158,7 @@ namespace Utility.OperationResult
         /// retVal.AddError("This is an error message");
         /// </code>
         /// </example>
-        IResult AddError(string message);
+        Result AddError(string message);
 
         /// <summary>
         ///     Removes all messages of the optionally specified MessageType, or all messages
@@ -179,7 +179,7 @@ namespace Utility.OperationResult
         /// retVal.RemoveMessages(MessageType.Error);
         /// </code>
         /// </example>
-        IResult RemoveMessages(MessageType messageType = MessageType.Any);
+        Result RemoveMessages(MessageType messageType = MessageType.Any);
 
         /// <summary>
         ///     Sets the ResultCode property to the optionally supplied ResultCode,
@@ -193,7 +193,7 @@ namespace Utility.OperationResult
         /// Result retVal = new Result().SetResultCode(ResultCode.Failure);
         /// </code>
         /// </example>
-        IResult SetResultCode(ResultCode resultCode = ResultCode.Success);
+        Result SetResultCode(ResultCode resultCode = ResultCode.Success);
 
         /// <summary>
         ///     Logs the result of the operation using the specified logger instance and the optionally specified caller as the source.
@@ -229,7 +229,7 @@ namespace Utility.OperationResult
         /// retVal.LogResult(logger);
         /// </code>
         /// </example>
-        IResult LogResult(Logger logger, [CallerMemberName]string caller = "");
+        Result LogResult(Logger logger, [CallerMemberName]string caller = "");
 
         /// <summary>
         ///     Logs the result of the operation using the specified logging method and the optionally specified caller as the source.
@@ -259,7 +259,7 @@ namespace Utility.OperationResult
         /// retVal.LogResult(logger.Debug);
         /// </code>
         /// </example>
-        IResult LogResult(Action<string> action, [CallerMemberName]string caller = "");
+        Result LogResult(Action<string> action, [CallerMemberName]string caller = "");
 
         /// <summary>
         ///     Logs the result of the operation using the three specified logging methods and the optionally specified caller as the source.
@@ -293,7 +293,7 @@ namespace Utility.OperationResult
         /// retVal.LogResult(logger.Trace, logger.Debug, logger.Warn);
         /// </code>
         /// </example>
-        IResult LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "");
+        Result LogResult(Action<string> successAction, Action<string> warningAction, Action<string> failureAction, [CallerMemberName]string caller = "");
 
         /// <summary>
         /// Logs all messages in the message list to the specified logging method.  If specified, logs a header and footer message before and after the list, respectively.
@@ -318,7 +318,7 @@ namespace Utility.OperationResult
         /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
         /// </code>
         /// </example>
-        IResult LogAllMessages(Action<string> action, string header = "", string footer = "");
+        Result LogAllMessages(Action<string> action, string header = "", string footer = "");
 
         /// <summary>
         ///     Logs all messages in the message list with a <see cref="MessageType"/> matching the specified type
@@ -345,7 +345,7 @@ namespace Utility.OperationResult
         /// retVal.LogAllMessages(logger.Info, "Message list:", "End of list.");
         /// </code>
         /// </example>
-        IResult LogAllMessages(Action<string> action, MessageType messageType = MessageType.Any, string header = "", string footer = "");
+        Result LogAllMessages(Action<string> action, MessageType messageType = MessageType.Any, string header = "", string footer = "");
 
         /// <summary>
         /// Returns the most recently added informational message contained within the message list.
@@ -429,7 +429,7 @@ namespace Utility.OperationResult
         /// outer.LogResult(logger); 
         /// </code>
         /// </example>
-        IResult Incorporate(IResult result);
+        Result Incorporate(IResult result);
 
         #endregion
 
