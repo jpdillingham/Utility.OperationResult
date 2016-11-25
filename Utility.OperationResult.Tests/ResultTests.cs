@@ -172,7 +172,8 @@ namespace Utility.OperationResult.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="Result.LogAllMessages(System.Action{string}, MessageType, string, string)"/> overloads. 
+        ///     Tests
+        ///     <see cref="Result.LogAllMessages(System.Action{string}, MessageType, string, string)"/> overloads.
         /// </summary>
         [Fact]
         public void LogAllMessages()
@@ -200,6 +201,16 @@ namespace Utility.OperationResult.Tests
 
             Assert.Equal(test.ResultCode, testTwo.ResultCode);
             Assert.Equal(test.Messages, testTwo.Messages);
+        }
+
+        [Fact]
+        public void GetLastNoMessages()
+        {
+            Result test = new Result();
+
+            string error = test.GetLastError();
+            string warning = test.GetLastWarning();
+            string info = test.GetLastInfo();
         }
     }
 }
