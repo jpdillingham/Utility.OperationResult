@@ -1,6 +1,7 @@
 # OperationResult
 
 [![Build status](https://ci.appveyor.com/api/projects/status/xej17n86fnpwbspa?svg=true)](https://ci.appveyor.com/project/jpdillingham/utility-operationresult)
+[![Build Status](https://travis-ci.org/jpdillingham/Utility.OperationResult.svg?branch=master)](https://travis-ci.org/jpdillingham/Utility.OperationResult)
 [![codecov](https://codecov.io/gh/jpdillingham/Utility.OperationResult/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/Utility.OperationResult)
 [![NuGet](https://img.shields.io/nuget/v/Utility.OperationResult.svg)](https://badge.fury.io/nu/Utility.OperationResult)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/Utility.OperationResult/blob/master/LICENSE)

@@ -1,0 +1,10 @@
+os:
+  - linux
+  - osx
+language: csharp
+solution: Utility.OperationResult.sln
+install:
+  - nuget restore Utility.OperationResult.sln
+script:
+  - xbuild /p:Configuration=Release Utility.OperationResult.sln
+  - mono ./packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./Utility.OperationResult.Tests/bin/Release/Utility.OperationResult.Tests.dll
