@@ -6,6 +6,14 @@
 [![NuGet](https://img.shields.io/nuget/v/Utility.OperationResult.svg)](https://badge.fury.io/nu/Utility.OperationResult)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/Utility.OperationResult/blob/master/LICENSE)
 
+A C# Class Library designed to represent the result of an operation. Includes a result code and a list of messages generated during the operation.
+
+## Why?
+
+I needed a way to return detailed information from a complex operation (method invocation, etc) without throwing costly Exceptions.  This library allows a method to return a value along with additional context containing any pertinent information generated during the execution.
+
+## OperationResult
+
 The OperationResult namespace contains two types; the ```Result``` type and the generic extension type ```Result{T}```.
 
 Both types are designed to be used as method return types.  Both types contain a ```ResultCode``` enumeration used to describe the result of the operation in terms of success, success with warnings, or failure, and a ```List{T}``` of type ```Message``` containing a list of messages generated during the operation.
