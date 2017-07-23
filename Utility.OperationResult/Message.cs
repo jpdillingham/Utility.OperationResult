@@ -78,11 +78,13 @@ namespace Utility.OperationResult
         /// <summary>
         ///     Gets or sets the content of the message.
         /// </summary>
+        [DataMember(Order = 2)]
         public string Text { get; set; }
 
         /// <summary>
         ///     Gets or sets the type of the message.
         /// </summary>
+        [DataMember(Order = 1)]
         public MessageType Type { get; set; }
 
         #endregion Properties
