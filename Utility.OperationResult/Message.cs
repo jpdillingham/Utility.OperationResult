@@ -57,7 +57,7 @@ namespace Utility.OperationResult
     [DataContract]
     public class Message
     {
-        #region Constructors
+        #region Public Constructors
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Message"/> class using the optionally supplied type with the
@@ -71,9 +71,9 @@ namespace Utility.OperationResult
             Text = text;
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Properties
+        #region Public Properties
 
         /// <summary>
         ///     Gets or sets the content of the message.
@@ -87,13 +87,9 @@ namespace Utility.OperationResult
         [DataMember(Order = 1)]
         public MessageType Type { get; set; }
 
-        #endregion Properties
-
-        #region Methods
+        #endregion Public Properties
 
         #region Public Methods
-
-        #region Public Instance Methods
 
         /// <summary>
         ///     Returns a formatted string representation of the message.
@@ -104,10 +100,6 @@ namespace Utility.OperationResult
             return "[" + Type.ToString().ToUpper() + "] " + Text;
         }
 
-        #endregion Public Instance Methods
-
         #endregion Public Methods
-
-        #endregion Methods
     }
 }
