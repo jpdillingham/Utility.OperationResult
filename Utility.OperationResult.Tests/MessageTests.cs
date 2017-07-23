@@ -7,6 +7,8 @@ namespace Utility.OperationResult.Tests
     /// </summary>
     public class MessageTests
     {
+        #region Public Methods
+
         /// <summary>
         ///     Tests the constructor of <see cref="Message"/>.
         /// </summary>
@@ -39,5 +41,7 @@ namespace Utility.OperationResult.Tests
 
             Assert.Equal("[INFO] Test", test.ToString());
         }
+
+        #endregion Public Methods
     }
 }
