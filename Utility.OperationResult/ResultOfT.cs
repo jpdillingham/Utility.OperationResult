@@ -55,6 +55,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using NLog;
+using System.Runtime.Serialization;
 
 namespace Utility.OperationResult
 {
@@ -105,6 +106,7 @@ namespace Utility.OperationResult
     ///     </para>
     /// </remarks>
     /// <typeparam name="T">The type of the object contained within the Result property.</typeparam>
+    [DataContract]
     public class Result<T> : Result, IResult<T>
     {
         #region Public Constructors
@@ -124,6 +126,7 @@ namespace Utility.OperationResult
         /// <summary>
         ///     Gets or sets the object containing the return value of the operation.
         /// </summary>
+        [DataMember(Order = 3)]
         public T ReturnValue { get; set; }
 
         #endregion Public Properties

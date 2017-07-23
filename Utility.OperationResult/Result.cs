@@ -56,6 +56,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using NLog;
+using System.Runtime.Serialization;
 
 namespace Utility.OperationResult
 {
@@ -97,6 +98,7 @@ namespace Utility.OperationResult
     ///         This functionality is provided for nested or sequential operations.
     ///     </para>
     /// </remarks>
+    [DataContract]
     public class Result : IResult
     {
         #region Public Constructors
@@ -127,11 +129,13 @@ namespace Utility.OperationResult
         /// <summary>
         ///     Gets or sets the list of messages generated during the operation.
         /// </summary>
+        [DataMember(Order = 2)]
         public List<Message> Messages { get; protected set; }
 
         /// <summary>
         ///     Gets or sets the result of the operation.
         /// </summary>
+        [DataMember(Order = 1)]
         public ResultCode ResultCode { get; protected set; }
 
         #endregion Public Properties
